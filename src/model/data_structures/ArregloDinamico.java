@@ -50,13 +50,11 @@ public class ArregloDinamico implements IArregloDinamico {
        }
 
 		public int darTamano() {
-			// TODO implementar
 			return tamanoAct;
 		}
 
 		public String darElemento(int i) {
-			// TODO implementar
-			return null;
+			return elementos[i];
 		}
 
 		public String buscar(String dato) {
