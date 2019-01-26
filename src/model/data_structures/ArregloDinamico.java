@@ -73,7 +73,8 @@ public class ArregloDinamico implements IArregloDinamico {
 				}
 			}
 			
-			message = message.substring(0, message.length() - 1) + ".";
+			//message = message.substring(0, message.length() - 1) + "."; //Regresa un mensaje infomativo
+			message = dato;
 			if (encontrado) return message;
 			return null;
 		}
@@ -107,6 +108,7 @@ public class ArregloDinamico implements IArregloDinamico {
 				elementos[i] = temp[i];
 			}
 			
-			return "se eliminaron " + nEliminados + " veces el dato " + dato;
+			//return "se eliminaron " + nEliminados + " veces el dato " + dato; //Regresa un mensaje informativo
+			return dato;
 		}
 }
