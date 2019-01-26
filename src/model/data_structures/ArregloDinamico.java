@@ -56,6 +56,7 @@ public class ArregloDinamico<K extends Comparable<K>> implements IArregloDinamic
 		}
 
 		public K darElemento(int i) {
+			if (i >= tamanoAct) return null;
 			return elementos[i];
 		}
 
@@ -64,7 +65,9 @@ public class ArregloDinamico<K extends Comparable<K>> implements IArregloDinamic
 			
 			//K message = "Esta en la posicion:";
 			Boolean encontrado = false;
-	
+			
+			// Los busca todos. Innecesario para lo pedido en la documentacion. Bastaria reemplazar
+			// encontrado = true por return true. Util para mensaje informativo
 			for (int i = 0; i < tamanoAct; i++) {
 				if (dato.compareTo(elementos[i]) == 0) {
 					//message += " " + (i+1) + ",";
@@ -80,28 +83,44 @@ public class ArregloDinamico<K extends Comparable<K>> implements IArregloDinamic
 
 		public K eliminar(K dato) {
 			
-			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Ks.
+			// Contendra los datos diferentes de dato compactados	
 			K[] temp = (K[]) new Comparable[tamanoMax];
 			
+			// Indica si se elimino algun dato del arreglo. Podria usar buscar(), pero es innecesario
 			boolean encontrado = false;
+			// Indicara el tamano del nuevo array
 			int tempTamanoAct = 0;
 			
+			// Agrega datos de forma compacta a temp
 			int j = 0; // Indice para el nuevo array
 			for (int i = 0; i < tamanoAct; i++) {
 				if (dato.compareTo(elementos[i]) != 0){
-					encontrado = true;
 					temp[j] = elementos[i];
 					j++;
 					tempTamanoAct++;
+				} else {
+					encontrado = true;
 				}
 			}
 			
+			// Previene calculos innecesarios si no se eliminan datos
 			if (!encontrado) return null;
 			
+			// Calculos para reducir el tamano total del array en caso de que se borren muchos datos.
 			int nEliminados = tamanoAct - tempTamanoAct;
+			
+			// Caso especial: se borran todos los elementos
+			if (nEliminados == tamanoAct) {
+				elementos = (K[]) new Comparable[1];
+				tamanoAct = 0;
+				tamanoMax = 1;
+			}
+			
+			// Revalua tamanoAct y el tamanoMax necesario para elementos
 			tamanoAct = tempTamanoAct;
 			while (tempTamanoAct <= tamanoMax/2) tamanoMax = tamanoMax/2;
 			
+			// Crea elementos de manera compacta con elementos restantes y tamano apropiado 
 			elementos = (K[]) new Comparable[tamanoMax];
 			for (int i = 0; i < tamanoAct; i++) {
 				elementos[i] = temp[i];
