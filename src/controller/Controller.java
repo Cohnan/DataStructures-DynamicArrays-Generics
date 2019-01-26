@@ -6,7 +6,7 @@ import model.data_structures.IArregloDinamico;
 public class Controller {
 
 	/* Instancia del Modelo del mundo */
-	private static IArregloDinamico modelo = new ArregloDinamico(7);
+	private static IArregloDinamico<String> modelo = new ArregloDinamico<String>(7);
 	
 	/**
 	 * Requerimiento crear Arreglo Dinamico
