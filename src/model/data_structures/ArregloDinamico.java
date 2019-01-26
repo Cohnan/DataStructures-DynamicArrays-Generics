@@ -60,24 +60,10 @@ public class ArregloDinamico<K extends Comparable<K>> implements IArregloDinamic
 			return elementos[i];
 		}
 
-		public K buscar(K dato) {
-			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Ks.
-			
-			//K message = "Esta en la posicion:";
-			Boolean encontrado = false;
-			
-			// Los busca todos. Innecesario para lo pedido en la documentacion. Bastaria reemplazar
-			// encontrado = true por return true. Util para mensaje informativo
+		public K buscar(K dato) {			
 			for (int i = 0; i < tamanoAct; i++) {
-				if (dato.compareTo(elementos[i]) == 0) {
-					//message += " " + (i+1) + ",";
-					encontrado = true;
-				}
+				if (dato.compareTo(elementos[i]) == 0) return dato;
 			}
-			
-			//message = message.substring(0, message.length() - 1) + "."; //Regresa un mensaje infomativo
-			//message = dato;
-			if (encontrado) return dato;
 			return null;
 		}
 
@@ -114,6 +100,7 @@ public class ArregloDinamico<K extends Comparable<K>> implements IArregloDinamic
 				elementos = (K[]) new Comparable[1];
 				tamanoAct = 0;
 				tamanoMax = 1;
+				return dato;
 			}
 			
 			// Revalua tamanoAct y el tamanoMax necesario para elementos
