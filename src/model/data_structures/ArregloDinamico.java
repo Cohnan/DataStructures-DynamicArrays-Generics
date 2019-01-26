@@ -72,13 +72,41 @@ public class ArregloDinamico implements IArregloDinamico {
 					encontrado = true;
 				}
 			}
-			if (encontrado) return message.substring(0, message.length() - 1);
+			
+			message = message.substring(0, message.length() - 1) + ".";
+			if (encontrado) return message;
 			return null;
 		}
 
 		public String eliminar(String dato) {
 			
 			// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.
-			return null;
+			String[] temp = new String[tamanoMax];
+			
+			boolean encontrado = false;
+			int tempTamanoAct = 0;
+			
+			int j = 0; // Indice para el nuevo array
+			for (int i = 0; i < tamanoAct; i++) {
+				if (dato.compareTo(elementos[i]) != 0){
+					encontrado = true;
+					temp[j] = elementos[i];
+					j++;
+					tempTamanoAct++;
+				}
+			}
+			
+			if (!encontrado) return null;
+			
+			int nEliminados = tamanoAct - tempTamanoAct;
+			tamanoAct = tempTamanoAct;
+			while (tempTamanoAct <= tamanoMax/2) tamanoMax = tamanoMax/2;
+			
+			elementos = new String[tamanoMax];
+			for (int i = 0; i < tamanoAct; i++) {
+				elementos[i] = temp[i];
+			}
+			
+			return "se eliminaron " + nEliminados + " veces el dato " + dato;
 		}
 }
